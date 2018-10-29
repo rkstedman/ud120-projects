@@ -1,15 +1,15 @@
 #!/usr/bin/python
 
-""" 
-    This is the code to accompany the Lesson 1 (Naive Bayes) mini-project. 
+"""
+    This is the code to accompany the Lesson 1 (Naive Bayes) mini-project.
 
     Use a Naive Bayes Classifier to identify emails by their authors
-    
+
     authors and labels:
     Sara has label 0
     Chris has label 1
 """
-    
+
 import sys
 from time import time
 sys.path.append("../tools/")
@@ -23,11 +23,29 @@ features_train, features_test, labels_train, labels_test = preprocess()
 
 
 
-
 #########################################################
 ### your code goes here ###
 
+from sklearn.naive_bayes import GaussianNB
+
+classifier = GaussianNB()
+
+t0 = time()
+classifier.fit(features_train, labels_train)
+print "training time:", round(time()-t0, 3), "s"
+
+t1 = time()
+classifier.predict(features_test)
+print "prediction time:", round(time()-t1, 3), "s"
+
+print "accuracy:", classifier.score(features_test, labels_test)
 
 #########################################################
 
-
+# Output!
+#
+# no. of Chris training emails: 7936
+# no. of Sara training emails: 7884
+# training time: 1.332 s
+# prediction time: 0.131 s
+# accuracy: 0.9732650739476678
